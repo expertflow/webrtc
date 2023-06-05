@@ -129,8 +129,6 @@ function startWebRTC(isOfferer) {
     localVideo.srcObject = streamObj.localStream;
     // Add your stream to be sent to the conneting peer
     stream.getTracks().forEach(track => pc.addTrack(track, streamObj.localStream));
-    // localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
-
   }, onError);
 
   // Listen to signaling data from Scaledrone

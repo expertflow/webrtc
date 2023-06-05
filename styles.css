@@ -44,7 +44,7 @@ body {
   .controls{
     position: absolute;
     top: 89%;
-    left: 50%;
+    left: 46%;
     transform: translate(-50%, -50%);
     cursor: pointer;
   }
