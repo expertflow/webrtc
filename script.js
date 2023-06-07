@@ -128,8 +128,10 @@ function startWebRTC(isOfferer) {
   const remoteVideo = document.querySelector('#remoteVideo');
 
   pc.addEventListener('track', async (event) => {
-    const [stream] = event.streams;
+    const [stream] = event.streams[0];
     remoteVideo.srcObject = stream;
+    console.log('eventttt', event)
+    console.log('remoteVideoooo', remoteVideo)
   });
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
