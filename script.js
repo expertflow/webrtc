@@ -116,23 +116,22 @@ function startWebRTC(isOfferer) {
   }
 
   // When a remote stream arrives display it in the #remoteVideo element
-  // pc.ontrack = event => {
-  //   const stream = event.streams[0];
-  //   if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-  //     remoteVideo.srcObject = stream;
-  //   }
-  // };
+  pc.ontrack = async (event: any): void =>{
+    const stream = event.streams[0];
+    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+      remoteVideo.srcObject = stream;
+    }
+  };
 
 
-
-  const remoteVideo = document.querySelector('#remoteVideo');
-
-  pc.addEventListener('track', async (event) => {
-    const [stream] = event.streams[0];
-    remoteVideo.srcObject = stream;
-    console.log('eventttt', event)
-    console.log('remoteVideoooo', remoteVideo)
-  });
+  // const remoteVideo = document.querySelector('#remoteVideo');
+  //
+  // pc.addEventListener('track', async (event) => {
+  //   const [stream] = event.streams[0];
+  //   remoteVideo.srcObject = stream;
+  //   console.log('eventttt', event)
+  //   console.log('remoteVideoooo', remoteVideo)
+  // });
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
@@ -237,3 +236,95 @@ function exit() {
   var win = window.open("about:blank", "_self");
   win.close();
 }
+
+
+
+//
+// const pc = useRef<RTCPeerConnection | null>();
+// const connecting = useRef(false);
+// const callRef = webRtcCollectionRef.doc(id);
+//
+// const createPeerConnection = async (): Promise<any> => {
+//   pc.current = new RTCPeerConnection(stunServers);
+//
+//   // Get Audio & VideoStream for Call
+//   const stream: any = await getLocalStream();
+//
+//   if (stream) {
+//     setLocalStream(stream);
+//     pc.current.addStream(stream);
+//   }
+//
+//   // Get the Remote when it is available and set it to the state
+//   pc.current.onaddstream = (event: any): void => {
+//     if (event.stream && remoteStream !== event.stream) {
+//       setRemoteStream(event.stream);
+//     }
+//   };
+// };
+//
+// const createOffer = async (): Promise<any> => {
+//   try {
+//     connecting.current = true;
+//
+//     // Call the WebRTC Setup
+//     await createPeerConnection();
+//
+//     // Exchange the ICE candidates between the caller and Callee;
+//     collectIceCandidates(callRef, 'caller', 'callee');
+//
+//     // Create the Offer
+//     if (pc.current) {
+//       // Store the offer under the document
+//       const offer: any = await pc.current?.createOffer(sessionConstraints);
+//       pc.current?.setLocalDescription(offer);
+//
+//       // Check Offer is available
+//       const checkWithOffer = {
+//         offer: {
+//           type: offer.type,
+//           sdp: offer.sdp,
+//         },
+//       };
+//       // Set the offer to the document
+//       callRef.set(checkWithOffer);
+//     }
+//   } catch (error) {
+//     console.error('Create Offer', error);
+//   }
+// };
+//
+//
+// const collectIceCandidates = async (
+//     callRef: FirebaseFirestoreTypes.DocumentReference<FirebaseFirestoreTypes.DocumentData>,
+//     localName: string,
+//     remoteName: string,
+// ): Promise<any> => {
+//   try {
+//     // Candidate Collection
+//     const candidateCollection = callRef.collection(localName);
+//
+//     if (pc.current) {
+//       // On new ICE candidate add it to firestore
+//       pc.current.onicecandidate = (event: any): any => {
+//         if (event.candidate) {
+//           candidateCollection.add(event.candidate);
+//         }
+//       };
+//     }
+//
+//     // Get the ICE candidates added to the firestore and update the local PC
+//     callRef.collection(remoteName).onSnapshot(async (snapshot: any) => {
+//       snapshot.docChanges().forEach(async (change: any) => {
+//         if (change.type === 'added') {
+//           const candidate = new RTCIceCandidate(change.doc.data());
+//           await pc.current?.addIceCandidate(candidate);
+//         }
+//       });
+//     });
+//   } catch (error) {
+//     console.error('ICE Candidates error', error);
+//   }
+// };
+
+
