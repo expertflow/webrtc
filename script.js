@@ -116,12 +116,21 @@ function startWebRTC(isOfferer) {
   }
 
   // When a remote stream arrives display it in the #remoteVideo element
-  pc.ontrack = event => {
-    const stream = event.streams[0];
-    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-      remoteVideo.srcObject = stream;
-    }
-  };
+  // pc.ontrack = event => {
+  //   const stream = event.streams[0];
+  //   if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+  //     remoteVideo.srcObject = stream;
+  //   }
+  // };
+
+
+
+  const remoteVideo = document.querySelector('#remoteVideo');
+
+  pc.addEventListener('track', async (event) => {
+    const [stream] = event.streams;
+    remoteVideo.srcObject = stream;
+  });
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element

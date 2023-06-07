@@ -12,6 +12,8 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script type='text/javascript' src='./scripts/jquery/dist/jquery.min.js'></script>
   <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+  <script src="script.js"></script>
+
   <link rel="stylesheet" href="./styles.css" />
 
 
@@ -19,14 +21,14 @@
 </head>
 
 <body>
-  <video class="remote" id="remoteVideo" autoplay playsinline></video>
+  <video class="remote" id="remoteVideo"   width="320" height="240"  autoplay playsinline></video>
 
   <div class="local-parent">
   <div class="speaker-status">
     <img class="speakeron-class" id="speakeron" src="./icons/speakeron.svg"></img>
     <img class="speakeroff-class" id="speakeroff" src="./icons/micoff.svg"></img>
   </div>
-  <video class="local" id="localVideo" autoplay playsinline muted></video>
+  <video class="local" id="localVideo"  width="320" height="240"  autoplay playsinline muted></video>
 </div>
 
   <div class="controls">
@@ -47,7 +49,6 @@
     </script>
   </div>
 
-  <script src="script.js"></script>
 </body>
 
 </html>
