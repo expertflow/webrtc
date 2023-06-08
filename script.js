@@ -137,11 +137,10 @@ function startWebRTC(isOfferer) {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
     // const localStream = await getUserMedia({vide: true, audio: true});
-    const peerConnection = new RTCPeerConnection(iceConfig);
-
-    localStream.getTracks().forEach(track => {
-      peerConnection.addTrack(track, localStream);
-    });
+    // const peerConnection = new RTCPeerConnection(configuration);
+    // localStream.getTracks().forEach(track => {
+    //   peerConnection.addTrack(track, localStream);
+    // });
 
 
 
