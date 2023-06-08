@@ -15,7 +15,7 @@ if (!location.hash) {
 const roomHash = location.hash.substring(1);
 
 // TODO: Replace with your own channel ID
-const drone = new ScaleDrone('wgV8XeE18gNO1Chi');
+const drone = new ScaleDrone('yiS12Ts5RdNhebyM');
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
 // const configuration = {
@@ -116,15 +116,35 @@ function startWebRTC(isOfferer) {
   }
 
   // When a remote stream arrives display it in the #remoteVideo element
-  pc.ontrack = event => {
-    const stream = event.streams[0];
-    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-      remoteVideo.srcObject = stream;
-    }
-  };
+  // pc.ontrack = event => {
+  //   const stream = event.streams[0];
+  //   if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+  //     remoteVideo.srcObject = stream;
+  //   }
+  // };
+  const remoteVideo = document.querySelector('#remoteVideo');
+
+  pc.addEventListener('track', async (event) => {
+    const [stream] = event.streams[0];
+    remoteVideo.srcObject = stream;
+  });
+
+
+
+
+
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
+    // const localStream = await getUserMedia({vide: true, audio: true});
+    const peerConnection = new RTCPeerConnection(iceConfig);
+
+    localStream.getTracks().forEach(track => {
+      peerConnection.addTrack(track, localStream);
+    });
+
+
+
     streamObj.localStream = stream;
     localVideo.srcObject = streamObj.localStream;
     // Add your stream to be sent to the conneting peer
