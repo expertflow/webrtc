@@ -124,21 +124,37 @@ function startWebRTC(isOfferer) {
   };
 
 
-  const constraints = {
-    'video': true,
-    'audio': true
+  // const constraints = {
+  //   'video': true,
+  //   'audio': true
+  // }
+  // navigator.mediaDevices.getUserMedia(constraints)
+  //     .then(stream => {
+  //       console.log('Got MediaStream:', stream);
+  //       streamObj.localStream = stream;
+  //       localVideo.srcObject = streamObj.localStream;
+  //       // Add your stream to be sent to the conneting peer
+  //       stream.getTracks().forEach(track => pc.addTrack(track, streamObj.localStream));
+  //     })
+  //     .catch(error => {
+  //       console.error('Error accessing media devices.', error);
+  //     });
+
+
+  const openMediaDevices = async (constraints) => {
+    return await navigator.mediaDevices.getUserMedia(constraints);
+  };
+
+  try {
+    const stream = openMediaDevices({'video':true,'audio':true});
+    console.log('Got MediaStream:', stream);
+    streamObj.localStream = stream;
+    localVideo.srcObject = streamObj.localStream;
+    // Add your stream to be sent to the conneting peer
+    stream.getTracks().forEach(track => pc.addTrack(track, streamObj.localStream));
+  } catch(error) {
+    console.error('Error accessing media devices.', error);
   }
-  navigator.mediaDevices.getUserMedia(constraints)
-      .then(stream => {
-        console.log('Got MediaStream:', stream);
-        streamObj.localStream = stream;
-        localVideo.srcObject = streamObj.localStream;
-        // Add your stream to be sent to the conneting peer
-        stream.getTracks().forEach(track => pc.addTrack(track, streamObj.localStream));
-      })
-      .catch(error => {
-        console.error('Error accessing media devices.', error);
-      });
 
   // navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
   //   // Display your local video in #localVideo element

@@ -47,6 +47,7 @@ body {
   left: 46%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+  z-index: 99;
 }
 
 .drop{
