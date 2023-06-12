@@ -119,7 +119,7 @@ function startWebRTC(isOfferer) {
   const remoteVideo = document.querySelector('#remoteVideo');
 
   pc.addEventListener('track', async (event) => {
-    const [remoteStream] = event.streams;
+    const [remoteStream] = event.streams[0];
     if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== remoteStream.id) {
       remoteVideo.srcObject = remoteStream;
     }
