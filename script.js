@@ -61,6 +61,57 @@ function onSuccess() { };
 function onError(error) {
   console.error(error);
 };
+function hasUserMedia() {
+  //check if the browser supports the WebRTC
+  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia);
+}
+
+if(hasUserMedia()){
+  console.log('web RTC Supported')
+}else{
+  alert('web RTC not supported device')
+}
+
+
+
+
+//constraints for desktop browser
+var desktopConstraints = {
+
+  video: {
+    mandatory: {
+      maxWidth:800,
+      maxHeight:600
+    }
+  },
+
+  audio: true
+};
+
+//constraints for mobile browser
+var mobileConstraints = {
+
+  video: {
+    mandatory: {
+      maxWidth: 480,
+      maxHeight: 320,
+    }
+  },
+
+  audio: true
+}
+
+//if a user is using a mobile browser
+if(/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+  var constraints = mobileConstraints;
+} else {
+  var constraints = desktopConstraints;
+}
+
+
+
+
 
 drone.on('open', error => {
   if (error) {
@@ -123,10 +174,10 @@ function startWebRTC(isOfferer) {
     }
   };
 
-  navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
 
 
-  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
+  navigator.mediaDevices.getUserMedia(constraints).then(stream => {
     // Display your local video in #localVideo element
     streamObj.localStream = stream;
     localVideo.srcObject = streamObj.localStream;
