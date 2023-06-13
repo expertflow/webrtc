@@ -123,10 +123,10 @@ function startWebRTC(isOfferer) {
     }
   };
 
-  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-  
-  navigator.getUserMedia({ audio: true, video: true }).then(stream => {
+
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
     streamObj.localStream = stream;
     localVideo.srcObject = streamObj.localStream;
