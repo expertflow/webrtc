@@ -115,37 +115,13 @@ function startWebRTC(isOfferer) {
     }
   }
 
-
-  const remoteVideo = document.querySelector('#remoteVideo');
-
-  pc.addEventListener('track', async (event) => {
-    const [remoteStream] = event.streams[0];
-    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== remoteStream.id) {
-      remoteVideo.srcObject = remoteStream;
-    }
-    remoteVideo.srcObject = remoteStream;
-  });
-
   // When a remote stream arrives display it in the #remoteVideo element
-  // pc.ontrack = event => {
-  //   const stream = event.streams[0];
-  //   if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-  //     remoteVideo.srcObject = stream;
-  //   }
-  // };
-
-
-  // const constraints = {
-  //   'video': true,
-  //   'audio': true
-  // }
-  // navigator.mediaDevices.getUserMedia(constraints)
-  //     .then(stream => {
-  //       console.log('Got MediaStream:', stream);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error accessing media devices.', error);
-  //     });
+  pc.ontrack = event => {
+    const stream = event.streams[0];
+    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+      remoteVideo.srcObject = stream;
+    }
+  };
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
@@ -153,9 +129,7 @@ function startWebRTC(isOfferer) {
     localVideo.srcObject = streamObj.localStream;
     // Add your stream to be sent to the conneting peer
     stream.getTracks().forEach(track => pc.addTrack(track, streamObj.localStream));
-  }) .catch(error => {
-    console.error('Error accessing media devices.', error);
-  });
+  }, onError);
 
   // Listen to signaling data from Scaledrone
   room.on('data', (message, client) => {
