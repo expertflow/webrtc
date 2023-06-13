@@ -63,8 +63,7 @@ function onError(error) {
 };
 function hasUserMedia() {
   //check if the browser supports the WebRTC
-  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia);
+  return !!(navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia ||  navigator.mediaDevices.mozGetUserMedia);
 }
 
 if(hasUserMedia()){
