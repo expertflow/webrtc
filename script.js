@@ -119,7 +119,8 @@ function startWebRTC(isOfferer) {
   pc.ontrack = event => {
     const stream = event.streams[0];
     if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-      remoteVideo.srcObject = stream;
+      // remoteVideo.srcObject = stream;
+      remoteVideo.srcObject =  streamObj.localStream;
     }
   };
 
