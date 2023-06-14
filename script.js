@@ -172,14 +172,14 @@ function startWebRTC(isOfferer) {
       // remoteVideo.srcObject = stream;
 
 
-      var video = document.getElementById('remoteVideo1');
+      // var video = document.getElementById('remoteVideo1');
       var source = document.getElementById('source1');
 
       // source.setAttribute('src.srcObject', URL.createObjectURL( stream ));
       source.srcObject = stream;
 
-      video.load();
-      video.play();
+      // video.load();
+      // video.play();
 
     // }
   };
