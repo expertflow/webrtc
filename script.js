@@ -116,7 +116,7 @@ function startWebRTC(isOfferer) {
   }
 
   // When a remote stream arrives display it in the #remoteVideo element
-  pc.ontrack = async event => {
+  pc.ontrack = async (event) => {
     const stream = event.streams[0];
     if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
       // remoteVideo.srcObject = stream;
