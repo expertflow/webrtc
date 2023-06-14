@@ -169,7 +169,17 @@ function startWebRTC(isOfferer) {
   pc.ontrack = event => {
     const stream = event.streams[0];
     if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-      remoteVideo.srcObject = stream;
+      // remoteVideo.srcObject = stream;
+
+
+      var video = document.getElementById('remoteVideo1');
+      var source = document.getElementById('source1');
+
+      source.setAttribute('src', stream);
+
+      video.load();
+      video.play();
+
     }
   };
 
