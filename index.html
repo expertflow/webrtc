@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>WebRtc Test App2</title>
+    <title>WebRtc Test App3</title>
     <meta name="description" content="WebRTC Javascript test pages">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <meta itemprop="description" content="Client-side WebRTC test pages">
@@ -22,21 +22,21 @@
 </head>
 
 <body>
-  <video class="remote" id="remoteVideo" autoplay muted  width="380" height="420"   playsinline></video>
+  <video class="remote" id="remoteVideo"   width="320" height="240"  autoplay playsinline></video>
   <div class="local-parent">
   <div class="speaker-status">
-    <img class="speakeron-class" id="speakeron" src="./icons/speakeron.svg"/>
-    <img class="speakeroff-class" id="speakeroff" src="./icons/micoff.svg"/>
+    <img class="speakeron-class" id="speakeron" src="./icons/speakeron.svg"></img>
+    <img class="speakeroff-class" id="speakeroff" src="./icons/micoff.svg"></img>
   </div>
-  <video class="local" id="localVideo" loop autoplay  muted width="320" height="240"  playsinline></video>
+  <video class="local" id="localVideo"  width="320" height="240"  autoplay playsinline muted></video>
 </div>
 
   <div class="controls">
-    <img id="camon" onclick="cameraOff()" src="./icons/camon.svg"/>
-    <img class="bck-gr" id="camoff" onclick="cameraOn()" src="./icons/camoff.svg"/>
-    <img class="bck-gr" id="micoff" onclick="micOn()" src="./icons/micoff.svg"/>
-    <img id="micon" onclick="micOff()" src="./icons/unmute.svg"/>
-    <img class="drop" onclick="exit()" src="./icons/contact.svg"/>
+    <img id="camon" onclick="cameraOff()" src="./icons/camon.svg"></img>
+    <img class="bck-gr" id="camoff" onclick="cameraOn()" src="./icons/camoff.svg"></img>
+    <img class="bck-gr" id="micoff" onclick="micOn()" src="./icons/micoff.svg"></img>
+    <img id="micon" onclick="micOff()" src="./icons/unmute.svg"></img>
+    <img class="drop" onclick="exit()" src="./icons/contact.svg"></img>
     <script>
       var micOnTag = document.getElementById("micoff");
       micOnTag.style.display = "none";
