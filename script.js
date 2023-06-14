@@ -175,7 +175,8 @@ function startWebRTC(isOfferer) {
       var video = document.getElementById('remoteVideo1');
       var source = document.getElementById('source1');
 
-      source.setAttribute('src', stream);
+      source.setAttribute('src', URL.createObjectURL( stream ));
+      // source.srcObject = stream;
 
       video.load();
       video.play();
