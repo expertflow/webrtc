@@ -133,7 +133,7 @@ function startWebRTC(isOfferer) {
   }, onError);
 
   // Listen to signaling data from Scaledrone
-  room.on('data', (message, client) => {
+  room.on('data', async (message, client) => {
     // Message was sent by us
     if (client.id === drone.clientId) {
       return;
@@ -141,7 +141,7 @@ function startWebRTC(isOfferer) {
 
     if (message.sdp) {
       // This is called after receiving an offer or answer from another peer
-      pc.setRemoteDescription(new RTCSessionDescription(message.sdp), () => {
+     await pc.setRemoteDescription(new RTCSessionDescription(message.sdp), () => {
         // When receiving an offer lets answer it
         if (pc.remoteDescription.type === 'offer') {
           pc.createAnswer().then(localDescCreated).catch(onError);
