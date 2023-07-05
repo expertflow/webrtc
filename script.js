@@ -116,10 +116,9 @@ function startWebRTC(isOfferer) {
   }
 
   // When a remote stream arrives display it in the #remoteVideo element
-  pc.ontrack = async (event) => {
+  pc.ontrack = event => {
     const stream = event.streams[0];
     if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-      // remoteVideo.srcObject = stream;
       remoteVideo.srcObject = stream;
     }
   };
@@ -133,7 +132,7 @@ function startWebRTC(isOfferer) {
   }, onError);
 
   // Listen to signaling data from Scaledrone
-  room.on('data', async (message, client) => {
+  room.on('data', (message, client) => {
     // Message was sent by us
     if (client.id === drone.clientId) {
       return;
@@ -141,7 +140,7 @@ function startWebRTC(isOfferer) {
 
     if (message.sdp) {
       // This is called after receiving an offer or answer from another peer
-     await pc.setRemoteDescription(new RTCSessionDescription(message.sdp), () => {
+      pc.setRemoteDescription(new RTCSessionDescription(message.sdp), () => {
         // When receiving an offer lets answer it
         if (pc.remoteDescription.type === 'offer') {
           pc.createAnswer().then(localDescCreated).catch(onError);
@@ -150,7 +149,7 @@ function startWebRTC(isOfferer) {
     } else if (message.candidate) {
       // Add the new ICE candidate to our connections remote description
       pc.addIceCandidate(
-          new RTCIceCandidate(message.candidate), onSuccess, onError
+        new RTCIceCandidate(message.candidate), onSuccess, onError
       );
     }
   });
@@ -161,9 +160,9 @@ function startWebRTC(isOfferer) {
 
 function localDescCreated(desc) {
   pc.setLocalDescription(
-      desc,
-      () => sendMessage({ 'sdp': pc.localDescription }),
-      onError
+    desc,
+    () => sendMessage({ 'sdp': pc.localDescription }),
+    onError
   );
 }
 
