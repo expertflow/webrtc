@@ -1,6 +1,6 @@
 {
   "iceServers": [{
-      "url": "turn:ctrn.expertflow.com:3478",
+      "urls": "turn:ctrn.expertflow.com:3478",
       "username": "1596817017",
       "credential": "RZ0inLpIyZb3lz0V6acUZBe2Ir8="
     }]
